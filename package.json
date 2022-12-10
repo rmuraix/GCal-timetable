@@ -1,0 +1,25 @@
+{
+  "name": "gcal-timetable",
+  "version": "1.0.0",
+  "description": "Making timetable on Google Apps Script",
+  "main": "main.ts",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rmuraix/GCal-timetable.git"
+  },
+  "author": "Ryota Murai",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rmuraix/GCal-timetable/issues"
+  },
+  "homepage": "https://github.com/rmuraix/GCal-timetable#readme",
+  "devDependencies": {
+    "@types/google-apps-script": "^1.0.56",
+    "@types/jest": "^29.2.4",
+    "jest": "^29.3.1",
+    "ts-jest": "^29.0.3"
+  }
+}
