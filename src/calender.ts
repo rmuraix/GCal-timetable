@@ -10,5 +10,8 @@ export class Cal {
         const events = this.calendar.getEventsForDay(date);
         return events[0];
     }
-
+    createEvent(title: string, startTime: Date, endTime: Date, description: string) {
+        const options = { description: description };
+        this.calendar.createEvent(title, startTime, endTime, options);
+    }
 }
