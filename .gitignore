@@ -1,3 +1,5 @@
 node_modules/
 dist/
 .clasp.json
+
+src/secret.ts
