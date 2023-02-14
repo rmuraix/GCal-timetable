@@ -14,9 +14,9 @@ However, **DO NOT** create an issue if it is a vulnerability report. How to repo
 $ nvm use # If you use nvm
 $ npm i
 ```
-### Compile
+### Build
 ```shell
-$ tsc
+$ npm run build
 ```  
 `.js` files are output to `./dist`.  
 Once your changes are ready, don't forget to self-review to speed up the review process!  

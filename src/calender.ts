@@ -1,5 +1,5 @@
 export class Cal {
-    readonly calendar: GoogleAppsScript.Calendar.Calendar;
+    private readonly calendar: GoogleAppsScript.Calendar.Calendar;
     constructor(id: string) {
         this.calendar = CalendarApp.getCalendarById(id);
     }
