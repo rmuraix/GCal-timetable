@@ -35,7 +35,7 @@ export const main = () => {
 
     for (let i = 0; i < config.count; i++) {
         // a week
-        let num = 0;
+        let num = targetDate.getDay() - 1;
         do {
             // a day
             if (!isHolyday(holydayCal, targetDate)) {
@@ -52,7 +52,7 @@ export const main = () => {
             }
             targetDate = new Date(targetDate.setDate(targetDate.getDate() + 1));
             num++;
-        } while (targetDate.getDay() < 6);
+        } while ((targetDate.getDay() < 6) && (targetDate.getDay() > 0));
         targetDate = new Date(targetDate.setDate(targetDate.getDate() + 2));
     }
 }
