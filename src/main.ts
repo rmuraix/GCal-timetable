@@ -8,9 +8,9 @@ const getEnv = (name: string) => {
 
 const isHolyday = (holydayCal: Cal, date: Date): boolean => {
     const event = holydayCal.getAllDayEvent(date);
-    if (event) {
-        return true;
-    } else {
+    if(event != null){
+        return holydayCal.isAlldayEvent(event);
+    }else{
         return false;
     }
 }
@@ -35,22 +35,24 @@ export const main = () => {
 
     for (let i = 0; i < config.count; i++) {
         // a week
-        let num = 0;
+        let num = targetDate.getDay() - 1;
         do {
             // a day
-            for (let j = 0; j < 4; j++) {
-                if (config.subject[num][j][0] != "") {
-                    myCal.createEvent(
-                        config.subject[num][j][0],
-                        new Date(targetDate.setHours(config.startTime[j][0], config.startTime[j][1])),
-                        new Date(targetDate.setMinutes(targetDate.getMinutes() + config.minutes)),
-                        config.subject[num][j][1]
-                    );
+            if (!isHolyday(holydayCal, targetDate)) {
+                for (let j = 0; j < 4; j++) {
+                    if (config.subject[num][j][0] != "") {
+                        myCal.createEvent(
+                            config.subject[num][j][0],
+                            new Date(targetDate.setHours(config.startTime[j][0], config.startTime[j][1])),
+                            new Date(targetDate.setMinutes(targetDate.getMinutes() + config.minutes)),
+                            config.subject[num][j][1]
+                        );
+                    }
                 }
             }
             targetDate = new Date(targetDate.setDate(targetDate.getDate() + 1));
             num++;
-        } while (targetDate.getDay() < 6);
+        } while ((targetDate.getDay() < 6) && (targetDate.getDay() > 0));
         targetDate = new Date(targetDate.setDate(targetDate.getDate() + 2));
     }
 }

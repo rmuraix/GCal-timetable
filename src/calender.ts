@@ -3,12 +3,16 @@ export class Cal {
     constructor(id: string) {
         this.calendar = CalendarApp.getCalendarById(id);
     }
-    getEvent() {
-
+    isAlldayEvent(event: GoogleAppsScript.Calendar.CalendarEvent): boolean {
+        return event.isAllDayEvent();
     }
     getAllDayEvent(date: Date) {
         const events = this.calendar.getEventsForDay(date);
-        return events[0];
+        if(events[0]){
+            return events[0];
+        }else{
+            return null;
+        }
     }
     createEvent(title: string, startTime: Date, endTime: Date, description: string) {
         const options = { description: description };
