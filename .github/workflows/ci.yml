@@ -22,7 +22,7 @@ jobs:
       - name: Create secret.ts
         shell: bash
         env:
-        SECRET_TS: ${{ secrets.SuperSecret }}
+          SECRET_TS: ${{ secrets.SuperSecret }}
         run: |
           echo "$SECRET_TS" > ./src/secret.ts
       - name: tsc
@@ -44,7 +44,7 @@ jobs:
       - name: Create secret.ts
         shell: bash
         env:
-        SECRET_TS: ${{ secrets.SuperSecret }}
+          SECRET_TS: ${{ secrets.SuperSecret }}
         run: |
           echo "$SECRET_TS" > ./src/secret.ts
       - name: Build
