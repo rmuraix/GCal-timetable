@@ -21,8 +21,10 @@ jobs:
           npm i typescript
       - name: Create secret.ts
         shell: bash
+        env:
+        SECRET_TS: ${{ secrets.SuperSecret }}
         run: |
-          echo ${{ secrets.SecretTs }} > ./src/secret.ts
+          echo "$SECRET_TS" > ./src/secret.ts
       - name: tsc
         shell: bash
         run: |
@@ -41,8 +43,10 @@ jobs:
           npm i typescript
       - name: Create secret.ts
         shell: bash
+        env:
+        SECRET_TS: ${{ secrets.SuperSecret }}
         run: |
-          echo ${{ secrets.SecretTs }} > ./src/secret.ts
+          echo "$SECRET_TS" > ./src/secret.ts
       - name: Build
         shell: bash
         run: |
