@@ -2,6 +2,7 @@
 [![License](https://img.shields.io/github/license/rmuraix/Gcal-timetable)](./LICENSE)  
 ## About
 Makeing timetable on Google Calender using Google Apps Script.  
+Holidays and all-day events are skipped.  
 ## Usage
  
 1. Change the contents of `config` in the `main` function.  
@@ -15,7 +16,7 @@ export const subject = [
     [[""], ["subject name"], ["subject name"], [""]]
 ];
 ```  
-3. Push to Apps Script via [clasp](https://github.com/google/clasp).  
+3. Run `npm run deploy` to push to Apps Script.  
 4. Create a property named MY_CAL and set your calendar ID on Google Apps Script. 
 5. Run `main` on Apps Script.
 ## Contributing  
