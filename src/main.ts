@@ -6,11 +6,11 @@ const getEnv = (name: string) => {
     return properties.getProperty(name) || "";
 }
 
-const isHolyday = (holydayCal: Cal, date: Date): boolean => {
-    const event = holydayCal.getAllDayEvent(date);
-    if(event != null){
-        return holydayCal.isAlldayEvent(event);
-    }else{
+const isHolyday = (calender: Cal, date: Date): boolean => {
+    const event = calender.getAllDayEvent(date);
+    if (event != null) {
+        return calender.isAlldayEvent(event);
+    } else {
         return false;
     }
 }
@@ -38,7 +38,7 @@ export const main = () => {
         let num = targetDate.getDay() - 1;
         do {
             // a day
-            if (!isHolyday(holydayCal, targetDate)) {
+            if (!(isHolyday(holydayCal, targetDate) || isHolyday(myCal, targetDate))) {
                 for (let j = 0; j < 4; j++) {
                     if (config.subject[num][j][0] != "") {
                         myCal.createEvent(
