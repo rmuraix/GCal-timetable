@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "build": "webpack",
+    "check": "tsc",
     "deploy": "npm run build && clasp push"
   },
   "repository": {
