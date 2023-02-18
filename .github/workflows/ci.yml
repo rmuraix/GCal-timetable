@@ -1,0 +1,53 @@
+name: CI
+
+on: 
+  push:
+    tags: [v*]
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  type-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Read .nvmrc
+        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+        id: nvm
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "${{ steps.nvm.outputs.NVMRC }}"
+      - name: Install Dependencies
+        shell: bash
+        run: |
+          npm ci
+          npm i typescript
+      - name: Create secret.ts
+        shell: bash
+        run: |
+          echo ${{ secrets.SecretTs }} > ./src/secret.ts
+      - name: tsc
+        shell: bash
+        run: |
+          npm run check
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Read .nvmrc
+        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+        id: nvm
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "${{ steps.nvm.outputs.NVMRC }}"
+      - name: Install Dependencies
+        shell: bash
+        run: |
+          npm ci
+          npm i typescript
+      - name: Create secret.ts
+        shell: bash
+        run: |
+          echo ${{ secrets.SecretTs }} > ./src/secret.ts
+      - name: Build
+        shell: bash
+        run: |
+          npm run build
