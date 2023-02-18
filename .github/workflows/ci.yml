@@ -10,16 +10,14 @@ jobs:
   type-check:
     runs-on: ubuntu-latest
     steps:
-      - name: Read .nvmrc
-        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
-        id: nvm
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: "${{ steps.nvm.outputs.NVMRC }}"
+          node-version: lts/*
       - name: Install Dependencies
         shell: bash
         run: |
-          npm ci
+          npm i
           npm i typescript
       - name: Create secret.ts
         shell: bash
@@ -32,16 +30,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Read .nvmrc
-        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
-        id: nvm
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: "${{ steps.nvm.outputs.NVMRC }}"
+          node-version: lts/*
       - name: Install Dependencies
         shell: bash
         run: |
-          npm ci
+          npm i
           npm i typescript
       - name: Create secret.ts
         shell: bash
