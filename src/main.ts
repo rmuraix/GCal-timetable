@@ -15,6 +15,17 @@ const isHolyday = (calender: Cal, date: Date): boolean => {
     }
 }
 
+const createDayEvents = (myCal: Cal, subject: string[][][], num: number, targetDate: Date, startTime: number[][], minutes: number) => {
+    for (let j = 0; j < 4; j++) {
+        if ((subject[num][j][0] != "")) {
+            let start = new Date(targetDate.setHours(startTime[j][0], startTime[j][1]));
+            let end = new Date(targetDate.setMinutes(targetDate.getMinutes() + minutes));
+
+            myCal.createEvent(subject[num][j][0], start, end, subject[num][j][1]);
+        }
+    }
+}
+
 export const main = () => {
     const config = {
         // Calendar settings
@@ -31,28 +42,24 @@ export const main = () => {
     const holydayCal = new Cal(config.holydayCalId);
     const myCal = new Cal(config.myCalId);
 
-    let targetDate = config.startDate
+    let targetDate = config.startDate;
 
-    for (let i = 0; i < config.count; i++) {
+    let counter = [0, 0, 0, 0, 0];
+
+    // Loop until each value of the counter equals config.count.
+    while ((counter.reduce((sum, num) => sum + num)) < config.count * counter.length) {
         // a week
         let num = targetDate.getDay() - 1;
-        do {
+        while ((targetDate.getDay() > 0) && (targetDate.getDay() < 6)) {
             // a day
-            if (!(isHolyday(holydayCal, targetDate) || isHolyday(myCal, targetDate))) {
-                for (let j = 0; j < 4; j++) {
-                    if (config.subject[num][j][0] != "") {
-                        myCal.createEvent(
-                            config.subject[num][j][0],
-                            new Date(targetDate.setHours(config.startTime[j][0], config.startTime[j][1])),
-                            new Date(targetDate.setMinutes(targetDate.getMinutes() + config.minutes)),
-                            config.subject[num][j][1]
-                        );
-                    }
-                }
+            if (!(isHolyday(holydayCal, targetDate) || isHolyday(myCal, targetDate)) && (counter[num] < config.count)) {
+                createDayEvents(myCal, config.subject, num, targetDate, config.startTime, config.minutes);
+                counter[num]++;
             }
             targetDate = new Date(targetDate.setDate(targetDate.getDate() + 1));
             num++;
-        } while ((targetDate.getDay() < 6) && (targetDate.getDay() > 0));
-        targetDate = new Date(targetDate.setDate(targetDate.getDate() + 2));
+        }
+        // Move on to the next day.
+        targetDate = new Date(targetDate.setDate(targetDate.getDate() + 1));
     }
 }
