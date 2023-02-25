@@ -33,14 +33,16 @@ export const main = () => {
 
     let targetDate = config.startDate
 
-    for (let i = 0; i < config.count; i++) {
+    let counter = [0, 0, 0, 0, 0];
+
+    do {
         // a week
         let num = targetDate.getDay() - 1;
         do {
             // a day
-            if (!(isHolyday(holydayCal, targetDate) || isHolyday(myCal, targetDate))) {
+            if (!(isHolyday(holydayCal, targetDate) || isHolyday(myCal, targetDate)) && (counter[num] < config.count)) {
                 for (let j = 0; j < 4; j++) {
-                    if (config.subject[num][j][0] != "") {
+                    if ((config.subject[num][j][0] != "")) {
                         myCal.createEvent(
                             config.subject[num][j][0],
                             new Date(targetDate.setHours(config.startTime[j][0], config.startTime[j][1])),
@@ -49,10 +51,11 @@ export const main = () => {
                         );
                     }
                 }
+                counter[num]++;
             }
             targetDate = new Date(targetDate.setDate(targetDate.getDate() + 1));
             num++;
         } while ((targetDate.getDay() < 6) && (targetDate.getDay() > 0));
         targetDate = new Date(targetDate.setDate(targetDate.getDate() + 2));
-    }
+    } while ((counter.reduce((sum, num) => sum + num)) < config.count * 5);
 }
