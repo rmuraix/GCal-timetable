@@ -63,3 +63,19 @@ export const main = () => {
         targetDate = new Date(targetDate.setDate(targetDate.getDate() + 1));
     }
 }
+
+export const deleteEvents = () => {
+    const config = {
+        startTime: new Date(),
+        endTime: new Date (),
+        myCalId: getEnv('MY_CAL')
+    };
+    const myCal = new Cal(config.myCalId);
+
+    const events = myCal.getEvents(config.startTime, config.endTime);
+
+    for (let i = 0; i < events.length; i++) {
+        myCal.deleteEvent(events[i]);
+    }
+
+}
