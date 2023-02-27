@@ -1,3 +1,5 @@
+import { deleteEvents } from "./main";
+
 export class Cal {
     private readonly calendar: GoogleAppsScript.Calendar.Calendar;
     constructor(id: string) {
@@ -14,8 +16,14 @@ export class Cal {
             return null;
         }
     }
+    getEvents(startTime:Date, endTime:Date) {
+        return this.calendar.getEvents(startTime,endTime);
+    }
     createEvent(title: string, startTime: Date, endTime: Date, description: string) {
         const options = { description: description };
         this.calendar.createEvent(title, startTime, endTime, options);
+    }
+    deleteEvent(event:GoogleAppsScript.Calendar.CalendarEvent) {
+        event.deleteEvent();
     }
 }
