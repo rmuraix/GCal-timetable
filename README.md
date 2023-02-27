@@ -3,6 +3,11 @@
 ## About
 Makeing timetable on Google Calender using Google Apps Script.  
 Holidays and all-day events are skipped.  
+## Requirements
+- Node.js  
+- TypeScript (`npm install -g typescript`)  
+- [Clasp](https://github.com/google/clasp) (`npm install -g @google/clasp`)  
+- Other dependencies (`npm install`)
 ## Usage
  
 1. Change the contents of `config` in the `main` function.  
