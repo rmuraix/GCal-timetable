@@ -1,0 +1,19 @@
+name: CI
+on:
+  push:
+    tags: [v*]
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Check code format with Prettier
+        run: |
+          npm ci
+          npx prettier --check src/
