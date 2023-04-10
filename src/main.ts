@@ -103,6 +103,8 @@ export const deleteEvents = () => {
   const events = myCal.getEvents(config.startTime, config.endTime);
 
   for (let i = 0; i < events.length; i++) {
-    myCal.deleteEvent(events[i]);
+    if (!myCal.isAlldayEvent(events[i])) {
+      myCal.deleteEvent(events[i]);
+    }
   }
 };
