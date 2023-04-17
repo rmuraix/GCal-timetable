@@ -28,7 +28,7 @@
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
     "babel-loader": "^9.1.2",
-    "eslint": "^8.37.0",
+    "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",
     "gas-webpack-plugin": "^2.3.0",
     "prettier": "^2.8.7",
