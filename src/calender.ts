@@ -6,7 +6,7 @@ export class Cal {
   isAlldayEvent(event: GoogleAppsScript.Calendar.CalendarEvent): boolean {
     return event.isAllDayEvent();
   }
-  getAllDayEvent(date: Date) {
+  getEventsForDay(date: Date) {
     const events = this.calendar.getEventsForDay(date);
     if (events[0]) {
       return events[0];
