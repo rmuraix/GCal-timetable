@@ -61,34 +61,24 @@ export const main = () => {
 
   let targetDate = config.startDate;
 
-  const counter = [0, 0, 0, 0, 0];
+  let counter = 0;
 
-  // Loop until each value of the counter equals config.count.
-  while (
-    counter.reduce((sum, num) => sum + num) <
-    config.count * counter.length
-  ) {
-    // a week
-    while (targetDate.getDay() > 0 && targetDate.getDay() < 6) {
-      // a day
-      const num = targetDate.getDay() - 1;
-      if (
-        !(isHolyday(holydayCal, targetDate) || isHolyday(myCal, targetDate)) &&
-        counter[num] < config.count
-      ) {
-        createDayEvents(
-          myCal,
-          config.subject,
-          num,
-          targetDate,
-          config.startTime,
-          config.minutes
-        );
-        counter[num]++;
-      }
-      targetDate = new Date(targetDate.setDate(targetDate.getDate() + 1));
+  while (counter < config.count * config.subject.length) {
+    if (
+      isNotHolyday(holydayCal, targetDate) &&
+      isNotHolyday(myCal, targetDate)
+    ) {
+      const dayIndex = targetDate.getDay() - 1;
+      createDayEvents(
+        myCal,
+        config.subject,
+        dayIndex,
+        targetDate,
+        config.startTime,
+        config.minutes
+      );
+      counter++;
     }
-    // Move on to the next day.
     targetDate = new Date(targetDate.setDate(targetDate.getDate() + 1));
   }
 };
