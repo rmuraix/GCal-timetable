@@ -16,4 +16,4 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Check code format with Prettier
-        run: npx prettier --check src/
+        run: npm run format:check
