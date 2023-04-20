@@ -18,14 +18,13 @@ const isNotHolyday = (calender: Cal, date: Date): boolean => {
 
 const createDayEvents = (
   myCal: Cal,
-  subject: string[][][],
-  index: number,
+  subject: string[][],
   targetDate: Date,
   startTime: number[][],
   minutes: number
 ) => {
   for (let j = 0; j < 4; j++) {
-    if (subject[index][j][0] != "") {
+    if (subject[j][0] != "") {
       const start = new Date(
         targetDate.setHours(startTime[j][0], startTime[j][1])
       );
@@ -33,7 +32,7 @@ const createDayEvents = (
         targetDate.setMinutes(targetDate.getMinutes() + minutes)
       );
 
-      myCal.createEvent(subject[index][j][0], start, end, subject[index][j][1]);
+      myCal.createEvent(subject[j][0], start, end, subject[j][1]);
     }
   }
 };
@@ -71,8 +70,7 @@ export const main = () => {
       const dayIndex = targetDate.getDay() - 1;
       createDayEvents(
         myCal,
-        config.subject,
-        dayIndex,
+        config.subject[dayIndex],
         targetDate,
         config.startTime,
         config.minutes
