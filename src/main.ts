@@ -23,7 +23,7 @@ const createDayEvents = (
   startTime: number[][],
   minutes: number
 ) => {
-  for (let j = 0; j < 4; j++) {
+  for (let j = 0; j < subject.length; j++) {
     if (subject[j][0] != "") {
       const start = new Date(
         targetDate.setHours(startTime[j][0], startTime[j][1])
