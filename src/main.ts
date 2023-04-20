@@ -6,13 +6,14 @@ const getEnv = (name: string) => {
   return properties.getProperty(name) || "";
 };
 
-const isHolyday = (calender: Cal, date: Date): boolean => {
-  const event = calender.getAllDayEvent(date);
+const isNotHolyday = (calender: Cal, date: Date): boolean => {
+  if (date.getDay() === 0) return false;
+  if (date.getDay() === 6) return false;
+  const event = calender.getEventsForDay(date);
   if (event != null) {
-    return calender.isAlldayEvent(event);
-  } else {
-    return false;
+    return !calender.isAlldayEvent(event);
   }
+  return true;
 };
 
 const createDayEvents = (
