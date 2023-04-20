@@ -5,10 +5,11 @@
   "private": "true",
   "main": "dist/index.js",
   "scripts": {
-    "test": "jest",
     "build": "webpack",
     "check": "tsc",
-    "deploy": "npm run build && clasp push"
+    "format:fix": "npx prettier --write .",
+    "format:check": "npx prettier --check .",
+    "deploy": "npm run check && npm run build && clasp push"
   },
   "repository": {
     "type": "git",
