@@ -20,7 +20,7 @@ Holidays and all-day events are skipped.
 2. Create `secret.ts` on the same level as `main.ts` and create the following constants.
 
 ```typescript
-export const subject = [
+export const subjects = [
   [
     ["subject name", "Description (optional)."],
     ["subject name", "Description (optional)."],

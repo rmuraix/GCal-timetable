@@ -1,5 +1,5 @@
 import { Cal } from "./calender";
-import { subject } from "./secret";
+import { subjects } from "./secret";
 
 const getEnv = (name: string) => {
   const properties = PropertiesService.getScriptProperties();
@@ -51,7 +51,7 @@ export const main = () => {
       [15, 45],
     ],
     // You need to create a secret.ts and create an array.
-    subject: subject,
+    subject: subjects,
     minutes: 105,
     count: 2,
   };
