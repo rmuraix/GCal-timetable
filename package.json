@@ -34,6 +34,6 @@
     "gas-webpack-plugin": "^2.5.0",
     "prettier": "^2.8.8",
     "webpack": "^5.82.1",
-    "webpack-cli": "^5.0.2"
+    "webpack-cli": "^5.1.1"
   }
 }
