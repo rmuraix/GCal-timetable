@@ -21,7 +21,7 @@ export class Cal {
     title: string,
     startTime: Date,
     endTime: Date,
-    description: string
+    description: string,
   ) {
     const options = { description: description };
     this.calendar.createEvent(title, startTime, endTime, options);
