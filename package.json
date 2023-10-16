@@ -24,7 +24,7 @@
   "homepage": "https://github.com/rmuraix/GCal-timetable#readme",
   "devDependencies": {
     "@babel/core": "^7.23.2",
-    "@babel/preset-env": "^7.22.20",
+    "@babel/preset-env": "^7.23.2",
     "@babel/preset-typescript": "^7.23.2",
     "@google/clasp": "^2.4.2",
     "@types/google-apps-script": "^1.0.74",
