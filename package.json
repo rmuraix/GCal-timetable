@@ -29,6 +29,6 @@
     "@types/google-apps-script": "^1.0.97",
     "esbuild": "^0.25.11",
     "esbuild-gas-plugin": "^0.10.0",
-    "typescript": "^5.6.3"
+    "typescript": "^5.9.3"
   }
 }
