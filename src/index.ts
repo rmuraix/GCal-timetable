@@ -1,8 +1,7 @@
-import { main } from "./main";
-import { deleteEvents } from "./main";
+import { deleteEvents, main } from "./main";
 
 declare const global: {
-  [x: string]: unknown;
+	[x: string]: unknown;
 };
 
 global.main = main;

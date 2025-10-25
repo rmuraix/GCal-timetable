@@ -1,6 +1,0 @@
-**/.git
-**/.svn
-**/.hg
-**/node_modules
-# Code output by webpack
-dist/index.js
