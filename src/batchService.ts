@@ -133,7 +133,7 @@ export class BatchService {
 				attempt++;
 
 				if (attempt < this.config.maxRetries) {
-					const backoffMs = this.config.initialBackoffMs * 2 ** (attempt - 1);
+					const backoffMs = this.config.initialBackoffMs * 2 ** attempt;
 					Logger.log(
 						`Batch request failed (attempt ${attempt}/${this.config.maxRetries}). Retrying in ${backoffMs}ms...`,
 					);
