@@ -225,10 +225,9 @@ export class BatchService {
 		// Simple parsing to detect errors in batch responses
 		// Each response part starts with HTTP/1.1 status code
 		const statusPattern = /HTTP\/1\.1 (\d+)/g;
-		let match: RegExpExecArray | null = null;
 		let errorCount = 0;
 
-		match = statusPattern.exec(responseText);
+		let match: RegExpExecArray | null = statusPattern.exec(responseText);
 		while (match !== null) {
 			const statusCode = Number.parseInt(match[1], 10);
 			if (statusCode >= 400) {
