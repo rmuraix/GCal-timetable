@@ -3,3 +3,4 @@ dist/
 .clasp.json
 
 src/secret.ts
+src/config.ts

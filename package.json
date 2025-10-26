@@ -11,7 +11,8 @@
     "lint:fix": "biome check --write src",
     "format": "biome format src",
     "format:fix": "biome format --write src",
-    "deploy": "npm run check && npm run build && clasp push"
+    "deploy": "npm run check && npm run build && clasp push",
+    "generate-config": "node scripts/generate-config.js"
   },
   "repository": {
     "type": "git",

@@ -13,26 +13,17 @@ Holidays and all-day events are skipped.
 
 ## Usage
 
-1. Change the contents of `config` in the `main` function.
-2. Create `secret.ts` on the same level as `main.ts` and create the following constants.
-
-```typescript
-export const subjects = [
-  [
-    ["subject name", "Description (optional)."],
-    ["subject name", "Description (optional)."],
-    [""],
-    [""],
-  ],
-  [[""], [""], ["subject name"], ["subject name"]],
-  [["subject name"], ["subject name"], ["subject name"], [""]],
-  [["subject name"], ["subject name"], [""], ["subject name"]],
-  [[""], ["subject name"], ["subject name"], [""]],
-];
-```
-
-3. Run `npm run deploy` to push to Apps Script.
-4. Create a property named MY_CAL and set your calendar ID on Google Apps Script.
+1. Generate the configuration file from the template:
+   ```bash
+   npm run generate-config
+   ```
+2. Update the configuration values in `src/config.ts` according to your needs:
+   - Modify `subject` array with your timetable schedule
+   - Adjust `startTime` for class periods
+   - Change `minutes` for class duration
+   - Set `count` for number of weeks to generate
+3. Create a property named MY_CAL and set your calendar ID on Google Apps Script.
+4. Run `npm run deploy` to push to Apps Script.
 5. Run `main` on Apps Script.
 
 ## Contributing

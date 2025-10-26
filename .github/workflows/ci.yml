@@ -15,5 +15,25 @@ jobs:
           node-version-file: "./.nvmrc"
       - name: Install dependencies
         run: npm ci
+      - name: Generate config from template
+        run: npm run generate-config
+      - name: Verify config was generated
+        run: |
+          if [ ! -f src/config.ts ]; then
+            echo "Error: src/config.ts was not generated"
+            exit 1
+          fi
+          echo "✅ src/config.ts exists"
+      - name: Type check
+        run: npm run check
       - name: Lint and format check
         run: npm run lint
+      - name: Build
+        run: npm run build
+      - name: Verify build output
+        run: |
+          if [ ! -f dist/index.js ]; then
+            echo "Error: dist/index.js was not created"
+            exit 1
+          fi
+          echo "✅ Build successful"
