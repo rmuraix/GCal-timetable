@@ -196,14 +196,18 @@ export class BatchService {
 	): string {
 		const parts: string[] = [];
 
-		for (const operation of operations) {
+		for (let i = 0; i < operations.length; i++) {
+			const operation = operations[i];
 			let part = `--${boundary}\r\n`;
-			part += "Content-Type: application/http\r\n\r\n";
+			part += "Content-Type: application/http\r\n";
+			part += `Content-ID: ${i + 1}\r\n\r\n`;
 			part += `${operation.method} ${operation.path} HTTP/1.1\r\n`;
-			part += "Content-Type: application/json\r\n\r\n";
 
 			if (operation.body) {
+				part += "Content-Type: application/json\r\n\r\n";
 				part += `${operation.body}\r\n`;
+			} else {
+				part += "\r\n";
 			}
 
 			parts.push(part);
