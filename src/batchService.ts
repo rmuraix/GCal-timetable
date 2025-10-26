@@ -196,8 +196,8 @@ export class BatchService {
 	): string {
 		const parts: string[] = [];
 
-		for (let i = 0; i < operations.length; i++) {
-			const operation = operations[i];
+		// Content-ID starts from 1 (not 0) as per Google API batch request specification
+		for (const [i, operation] of operations.entries()) {
 			let part = `--${boundary}\r\n`;
 			part += "Content-Type: application/http\r\n";
 			part += `Content-ID: ${i + 1}\r\n\r\n`;
