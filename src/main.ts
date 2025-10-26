@@ -1,5 +1,8 @@
 import { Cal } from "./calender";
-import { subjects } from "./secret";
+import {
+	config as importedConfig,
+	deleteConfig as importedDeleteConfig,
+} from "./config";
 
 const getEnv = (name: string) => {
 	const properties = PropertiesService.getScriptProperties();
@@ -38,22 +41,10 @@ const createDayEvents = (
 };
 
 export const main = () => {
+	// Load config from config.ts and set myCalId from environment
 	const config = {
-		// Calendar settings
-		holydayCalId: "ja.japanese#holiday@group.v.calendar.google.com",
+		...importedConfig,
 		myCalId: getEnv("MY_CAL"),
-		// Setting about timetable
-		startDate: new Date(),
-		startTime: [
-			[9, 20],
-			[11, 15],
-			[13, 50],
-			[15, 45],
-		],
-		// You need to create a secret.ts and create an array.
-		subject: subjects,
-		minutes: 105,
-		count: 2,
 	};
 	const holydayCal = new Cal(config.holydayCalId);
 	const myCal = new Cal(config.myCalId);
@@ -82,9 +73,9 @@ export const main = () => {
 };
 
 export const deleteEvents = () => {
+	// Load delete config from config.ts and set myCalId from environment
 	const config = {
-		startTime: new Date(),
-		endTime: new Date(),
+		...importedDeleteConfig,
 		myCalId: getEnv("MY_CAL"),
 	};
 	const myCal = new Cal(config.myCalId);
