@@ -26,6 +26,17 @@ Holidays and all-day events are skipped.
 4. Run `npm run deploy` to push to Apps Script.
 5. Run `main` on Apps Script.
 
+## Available Commands
+
+- `npm run generate-config` - Generate `src/config.ts` from the template
+- `npm run check` - Run TypeScript type checking
+- `npm run lint` - Run linter (biome)
+- `npm run lint:fix` - Run linter with auto-fix
+- `npm run format` - Check code formatting
+- `npm run format:fix` - Format code automatically
+- `npm run build` - Build the project
+- `npm run deploy` - Check, build, and deploy to Apps Script
+
 ## Contributing
 
 Your contribution is always welcome. Please read [Contributing Guide](.github/CONTRIBUTING.md).
