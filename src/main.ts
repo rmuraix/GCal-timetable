@@ -49,6 +49,9 @@ export const main = () => {
 	const holydayCal = new Cal(config.holydayCalId);
 	const myCal = new Cal(config.myCalId);
 
+	// Enable batch mode for event creation
+	myCal.enableBatchMode();
+
 	let targetDate = config.startDate;
 
 	let counter = 0;
@@ -70,6 +73,9 @@ export const main = () => {
 		}
 		targetDate = new Date(targetDate.setDate(targetDate.getDate() + 1));
 	}
+
+	// Flush all queued batch operations
+	myCal.flushBatchOperations();
 };
 
 export const deleteEvents = () => {
@@ -80,6 +86,9 @@ export const deleteEvents = () => {
 	};
 	const myCal = new Cal(config.myCalId);
 
+	// Enable batch mode for event deletion
+	myCal.enableBatchMode();
+
 	const events = myCal.getEvents(config.startTime, config.endTime);
 
 	for (let i = 0; i < events.length; i++) {
@@ -87,4 +96,7 @@ export const deleteEvents = () => {
 			myCal.deleteEvent(events[i]);
 		}
 	}
+
+	// Flush all queued batch operations
+	myCal.flushBatchOperations();
 };
