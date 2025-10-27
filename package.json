@@ -27,7 +27,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.3.0",
     "@google/clasp": "^2.5.0",
-    "@types/google-apps-script": "^1.0.97",
+    "@types/google-apps-script": "^1.0.100",
     "esbuild": "^0.25.11",
     "esbuild-gas-plugin": "^0.10.0",
     "typescript": "^5.9.3"
