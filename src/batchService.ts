@@ -202,9 +202,11 @@ export class BatchService {
 			part += "Content-Type: application/http\r\n";
 			part += `Content-ID: ${i + 1}\r\n\r\n`;
 			part += `${operation.method} ${operation.path} HTTP/1.1\r\n`;
+			part += "Host: www.googleapis.com\r\n";
 
 			if (operation.body) {
-				part += "Content-Type: application/json\r\n\r\n";
+				part += "Content-Type: application/json\r\n";
+				part += `Content-Length: ${operation.body.length}\r\n\r\n`;
 				part += `${operation.body}\r\n`;
 			} else {
 				part += "\r\n";
@@ -234,23 +236,44 @@ export class BatchService {
 				errorCount++;
 				// Try to extract JSON error body from the response
 				const startIndex = match.index || 0;
+				// Look for the JSON body after the headers (after the empty line)
 				const responseSection = responseText.substring(
 					startIndex,
-					startIndex + 1000,
+					startIndex + 2000,
 				);
-				const jsonMatch = responseSection.match(/\{[\s\S]*?\}/);
-				if (jsonMatch) {
-					try {
-						const errorObj = JSON.parse(jsonMatch[0]);
-						const errorMsg =
-							errorObj.error?.message || JSON.stringify(errorObj);
-						errors.push(`HTTP ${statusCode}: ${errorMsg}`);
-					} catch {
-						errors.push(`HTTP ${statusCode}: Unable to parse error details`);
+
+				// Find the JSON object in the response body
+				// It should be after headers (after \r\n\r\n or \n\n)
+				const bodyStart = responseSection.search(/\r?\n\r?\n/);
+				let errorMsg = "No error details available";
+
+				if (bodyStart > 0) {
+					const bodySection = responseSection.substring(bodyStart);
+					// Try to find JSON object
+					const jsonMatch = bodySection.match(
+						/\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}/,
+					);
+					if (jsonMatch) {
+						try {
+							const errorObj = JSON.parse(jsonMatch[0]);
+							if (errorObj.error?.message) {
+								errorMsg = errorObj.error.message;
+							} else if (errorObj.error) {
+								errorMsg = JSON.stringify(errorObj.error);
+							} else {
+								errorMsg = JSON.stringify(errorObj);
+							}
+						} catch {
+							// If JSON parsing fails, show raw response excerpt
+							errorMsg = bodySection.substring(0, 200).trim();
+						}
+					} else {
+						// No JSON found, show raw body excerpt
+						errorMsg = bodySection.substring(0, 200).trim();
 					}
-				} else {
-					errors.push(`HTTP ${statusCode}: No error details available`);
 				}
+
+				errors.push(`HTTP ${statusCode}: ${errorMsg}`);
 			}
 		}
 
@@ -264,6 +287,17 @@ export class BatchService {
 			});
 			if (errors.length > 3) {
 				Logger.log(`... and ${errors.length - 3} more error(s)`);
+			}
+
+			// Add helpful context for common errors
+			if (errors.some((e) => e.includes("HTTP 403"))) {
+				Logger.log(
+					"HTTP 403 errors indicate permission issues. Please verify:",
+				);
+				Logger.log("1. The calendar ID is correct");
+				Logger.log("2. The script has calendar access permissions");
+				Logger.log("3. The OAuth scopes include calendar permissions");
+				Logger.log("4. You've authorized the script in Google Apps Script");
 			}
 		}
 	}
