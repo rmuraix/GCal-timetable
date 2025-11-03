@@ -222,24 +222,49 @@ export class BatchService {
 	 * Parse batch response and log any errors
 	 */
 	private parseAndLogBatchResponse(responseText: string): void {
-		// Simple parsing to detect errors in batch responses
+		// Parse batch responses to detect and log individual operation errors
 		// Each response part starts with HTTP/1.1 status code
 		const statusPattern = /HTTP\/1\.1 (\d+)/g;
 		let errorCount = 0;
+		const errors: string[] = [];
 
-		let match: RegExpExecArray | null = statusPattern.exec(responseText);
-		while (match !== null) {
-			const statusCode = Number.parseInt(match[1], 10);
+		for (const match of responseText.matchAll(statusPattern)) {
+			const statusCode = parseInt(match[1], 10);
 			if (statusCode >= 400) {
 				errorCount++;
+				// Try to extract JSON error body from the response
+				const startIndex = match.index || 0;
+				const responseSection = responseText.substring(
+					startIndex,
+					startIndex + 1000,
+				);
+				const jsonMatch = responseSection.match(/\{[\s\S]*?\}/);
+				if (jsonMatch) {
+					try {
+						const errorObj = JSON.parse(jsonMatch[0]);
+						const errorMsg =
+							errorObj.error?.message || JSON.stringify(errorObj);
+						errors.push(`HTTP ${statusCode}: ${errorMsg}`);
+					} catch {
+						errors.push(`HTTP ${statusCode}: Unable to parse error details`);
+					}
+				} else {
+					errors.push(`HTTP ${statusCode}: No error details available`);
+				}
 			}
-			match = statusPattern.exec(responseText);
 		}
 
 		if (errorCount > 0) {
 			Logger.log(
 				`Batch completed with ${errorCount} individual operation error(s)`,
 			);
+			// Log first few errors for debugging
+			errors.slice(0, 3).forEach((error, index) => {
+				Logger.log(`Error ${index + 1}: ${error}`);
+			});
+			if (errors.length > 3) {
+				Logger.log(`... and ${errors.length - 3} more error(s)`);
+			}
 		}
 	}
 
