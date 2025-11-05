@@ -18,7 +18,7 @@ Holidays and all-day events are skipped.
    npm run generate-config
    ```
 2. Update the configuration values in `src/config.ts` according to your needs:
-   - Modify `subject` array with your timetable schedule
+   - Modify `subject` array with your timetable schedule. Each subject is an object with `name` and optional `description`. Use `null` for empty slots.
    - Adjust `startTime` for class periods
    - Change `minutes` for class duration
    - Set `count` for number of weeks to generate
