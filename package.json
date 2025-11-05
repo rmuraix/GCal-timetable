@@ -27,7 +27,7 @@
   "homepage": "https://github.com/rmuraix/GCal-timetable#readme",
   "devDependencies": {
     "@biomejs/biome": "2.3.2",
-    "@google/clasp": "^2.5.0",
+    "@google/clasp": "^3.1.1",
     "@types/google-apps-script": "^1.0.100",
     "esbuild": "^0.25.11",
     "esbuild-gas-plugin": "^0.10.0",
