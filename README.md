@@ -23,8 +23,10 @@ Holidays and all-day events are skipped.
    - Change `minutes` for class duration
    - Set `count` for number of weeks to generate
 3. Create a property named MY_CAL and set your calendar ID on Google Apps Script.
-4. Run `npm run deploy` to push to Apps Script.
-5. Run `main` on Apps Script.
+4. Enable Calender API
+5. Login via clasp: `npm run clasp login`
+6. Run `npm run deploy` to push to Apps Script.
+7. Run `main` on Apps Script.
 
 ## Available Commands
 
