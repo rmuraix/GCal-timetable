@@ -1,6 +1,7 @@
 # GCal-timetable
 
 [![License](https://img.shields.io/github/license/rmuraix/Gcal-timetable)](./LICENSE)
+[![CI](https://github.com/rmuraix/GCal-timetable/actions/workflows/ci.yml/badge.svg)](https://github.com/rmuraix/GCal-timetable/actions/workflows/ci.yml)
 
 ## About
 
