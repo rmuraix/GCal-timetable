@@ -5,14 +5,15 @@
   "private": "true",
   "main": "dist/index.js",
   "scripts": {
-    "build": "node esbuild.config.mjs",
+    "build": "node esbuild.config.mjs && cp appsscript.json dist/appsscript.json",
     "check": "tsc",
     "lint": "biome check src",
     "lint:fix": "biome check --write src",
     "format": "biome format src",
     "format:fix": "biome format --write src",
     "deploy": "npm run check && npm run build && clasp push",
-    "generate-config": "node scripts/generate-config.js"
+    "generate-config": "node scripts/generate-config.js",
+    "clasp": "clasp"
   },
   "repository": {
     "type": "git",
