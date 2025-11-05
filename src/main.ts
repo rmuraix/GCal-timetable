@@ -2,6 +2,7 @@ import { Cal } from "./calender";
 import {
 	config as importedConfig,
 	deleteConfig as importedDeleteConfig,
+	type Subject,
 } from "./config";
 
 const getEnv = (name: string) => {
@@ -21,13 +22,15 @@ const isNotHolyday = (calender: Cal, date: Date): boolean => {
 
 const createDayEvents = (
 	myCal: Cal,
-	subject: string[][],
+	subject: (Subject | null)[] | undefined,
 	targetDate: Date,
 	startTime: number[][],
 	minutes: number,
 ) => {
+	if (!subject) return;
 	for (let j = 0; j < subject.length; j++) {
-		if (subject[j][0] !== "") {
+		const currentSubject = subject[j];
+		if (currentSubject) {
 			const start = new Date(
 				targetDate.setHours(startTime[j][0], startTime[j][1]),
 			);
@@ -35,7 +38,9 @@ const createDayEvents = (
 				targetDate.setMinutes(targetDate.getMinutes() + minutes),
 			);
 
-			myCal.createEvent(subject[j][0], start, end, subject[j][1]);
+			myCal.createEvent(currentSubject.name, start, end, {
+				description: currentSubject.description,
+			});
 		}
 	}
 };

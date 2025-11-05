@@ -7,6 +7,11 @@
  * 3. Run `npm run deploy` to push to Apps Script
  */
 
+export interface Subject {
+	name: string;
+	description?: string;
+}
+
 export interface Config {
 	// Calendar settings
 	holydayCalId: string;
@@ -14,7 +19,7 @@ export interface Config {
 	// Setting about timetable
 	startDate: Date;
 	startTime: number[][];
-	subject: string[][][];
+	subject: (Subject | null)[][];
 	minutes: number;
 	count: number;
 }
@@ -33,7 +38,7 @@ export interface DeleteConfig {
  * - myCalId: Your calendar ID (retrieved from MY_CAL environment variable)
  * - startDate: Start date for creating events
  * - startTime: Array of [hour, minute] pairs for each class period
- * - subject: 3D array of subjects [day][period][name, description]
+ * - subject: 2D array of subjects [day][period]
  * - minutes: Duration of each class in minutes
  * - count: Number of weeks to generate
  */
@@ -49,15 +54,15 @@ export const config: Config = {
 	],
 	subject: [
 		[
-			["subject name", "Description (optional)."],
-			["subject name", "Description (optional)."],
-			[""],
-			[""],
+			{ name: "subject name", description: "Description (optional)." },
+			{ name: "subject name", description: "Description (optional)." },
+			null,
+			null,
 		],
-		[[""], [""], ["subject name"], ["subject name"]],
-		[["subject name"], ["subject name"], ["subject name"], [""]],
-		[["subject name"], ["subject name"], [""], ["subject name"]],
-		[[""], ["subject name"], ["subject name"], [""]],
+		[null, null, { name: "subject name" }, { name: "subject name" }],
+		[{ name: "subject name" }, { name: "subject name" }, { name: "subject name" }, null],
+		[{ name: "subject name" }, { name: "subject name" }, null, { name: "subject name" }],
+		[null, { name: "subject name" }, { name: "subject name" }, null],
 	],
 	minutes: 105,
 	count: 2,

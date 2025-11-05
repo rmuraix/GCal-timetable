@@ -57,7 +57,7 @@ export class Cal {
 		title: string,
 		startTime: Date,
 		endTime: Date,
-		description: string,
+		options?: { description?: string },
 	) {
 		if (this.batchService) {
 			// Queue the event for batch creation
@@ -65,12 +65,11 @@ export class Cal {
 				title,
 				startTime,
 				endTime,
-				description,
+				options?.description ?? "",
 			);
 		} else {
 			// Create event immediately (legacy mode)
-			const options = { description: description };
-			this.calendar.createEvent(title, startTime, endTime, options);
+			this.calendar.createEvent(title, startTime, endTime, options || {});
 		}
 	}
 
