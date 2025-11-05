@@ -7,6 +7,8 @@
 Makeing timetable on Google Calender using Google Apps Script.  
 Holidays and all-day events are skipped.
 
+![screenshot_calender](./assets/screenshot_calender.png)
+
 ## Requirements
 
 - Node.js
