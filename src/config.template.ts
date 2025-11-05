@@ -21,7 +21,7 @@ export interface Config {
 	startTime: number[][];
 	subject: (Subject | null)[][];
 	minutes: number;
-	count: number;
+	repeatWeeks: number;
 }
 
 export interface DeleteConfig {
@@ -40,7 +40,7 @@ export interface DeleteConfig {
  * - startTime: Array of [hour, minute] pairs for each class period
  * - subject: 2D array of subjects [day][period]
  * - minutes: Duration of each class in minutes
- * - count: Number of weeks to generate
+ * - repeatWeeks: Number of weeks to generate
  */
 export const config: Config = {
 	holydayCalId: "ja.japanese#holiday@group.v.calendar.google.com",
@@ -60,12 +60,22 @@ export const config: Config = {
 			null,
 		],
 		[null, null, { name: "subject name" }, { name: "subject name" }],
-		[{ name: "subject name" }, { name: "subject name" }, { name: "subject name" }, null],
-		[{ name: "subject name" }, { name: "subject name" }, null, { name: "subject name" }],
+		[
+			{ name: "subject name" },
+			{ name: "subject name" },
+			{ name: "subject name" },
+			null,
+		],
+		[
+			{ name: "subject name" },
+			{ name: "subject name" },
+			null,
+			{ name: "subject name" },
+		],
 		[null, { name: "subject name" }, { name: "subject name" }, null],
 	],
 	minutes: 105,
-	count: 2,
+	repeatWeeks: 2,
 };
 
 /**

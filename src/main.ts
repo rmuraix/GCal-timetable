@@ -61,7 +61,7 @@ export const main = () => {
 
 	let counter = 0;
 
-	while (counter < config.count * config.subject.length) {
+	while (counter < config.repeatWeeks * config.subject.length) {
 		if (
 			isNotHolyday(holydayCal, targetDate) &&
 			isNotHolyday(myCal, targetDate)
